@@ -1,0 +1,76 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'scrobbler'
+require 'mp3info'
+require 'choice'
+
+ROOT_PATH = File.dirname( File.expand_path( File.dirname( __FILE__ ) ) )
+$:.unshift( ROOT_PATH )
+require 'lib/massive_scrobbler'
+require 'lib/songs'
+
+
+Choice.options do
+  header 'MassiveScrobbler options:'
+
+  option :path do
+    short '-p'
+    long '--path'
+    desc 'Path where to search the MP3 files [default: current dir]'
+    default '.'
+  end
+
+  option :help do
+    short '-h'
+    long '--help'
+    desc 'Show this message.'
+  end
+
+  option :version do
+    short '-v'
+    long '--version'
+    desc 'Show version.'
+    action do
+      puts 'MassiveScrobbler version 0.1'
+      exit
+    end
+  end
+end
+
+
+ms = MassiveScrobbler.new
+
+puts Choice.choices.path
+aMp3 = Songs.mp3_search(Choice.choices.path)
+
+aMp3Info = aMp3.collect do |mp3|
+  Mp3Info.open(mp3) do |mp3info|
+    { :length => mp3info.length.to_i,
+      :artist => mp3info.tag.artist,
+      :title  => mp3info.tag.title,
+      :album  => mp3info.tag.album,
+      :trackn => mp3info.tag.tracknum }
+  end
+end
+
+auth = Scrobbler::SimpleAuth.new(ms.get_user)
+auth.handshake!
+
+puts "Auth Status: #{auth.status}"
+puts "Session ID: #{auth.session_id}"
+puts "Now Playing URL: #{auth.now_playing_url}"
+puts "Submission URL: #{auth.submission_url}"
+
+aMp3Info.each do |mp3|
+  scrobble = Scrobbler::Scrobble.new(:session_id => auth.session_id,
+                                     :submission_url => auth.submission_url,
+                                     :artist => mp3[:artist],
+                                     :track => mp3[:title],
+                                     :album => mp3[:album],
+                                     :time => Time.new,
+                                     :length => mp3[:length],
+                                     :track_number => mp3[:trackn])
+  scrobble.submit!
+  puts "#{mp3[:title]}: #{scrobble.status}"
+end

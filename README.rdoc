@@ -1,0 +1,21 @@
+= Massive Scrobbler
+=== Hack your LastFM account with thousands of scrobblings in just few seconds :)
+
+
+== Requirements
+* a LastFM account
+* something else
+
+
+== Installation
+coming soon...
+
+
+== Usage
+coming soon...
+
+
+== ToDo:
+* better documentation
+* more features
+* upgrade to Scrobbler-ng # lastfm API 2.0

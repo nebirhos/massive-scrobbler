@@ -1,0 +1,5 @@
+README.rdoc
+Rakefile
+bin/massive-scrobbler
+lib/songs.rb
+Manifest

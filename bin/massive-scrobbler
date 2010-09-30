@@ -20,8 +20,8 @@ Choice.options do
   option :path do
     short '-p'
     long '--path'
-    desc 'Path where to search the MP3 files [default: current dir]'
-    default '.'
+    desc 'Path where to search the audio files [default: current directory].'
+    default './'
   end
 
   option :help do
@@ -35,14 +35,14 @@ Choice.options do
     long '--version'
     desc 'Show version.'
     action do
-      puts 'MassiveScrobbler version 0.1'
+      puts "MassiveScrobbler #{MassiveScrobbler::VERSION}"
       exit
     end
   end
 end
 
-
 puts Choice.choices.path
+
 s = MassiveScrobbler::Songs.new(Choice.choices.path)
 u = MassiveScrobbler::User.new
 

@@ -1,14 +1,17 @@
 #!/usr/bin/env ruby
 
-require 'rubygems'
+require 'rubygems' if RUBY_VERSION < '1.9'
+require 'activesupport' # activesupport WTF?
 require 'scrobbler'
 require 'mp3info'
 require 'choice'
 
+
 ROOT_PATH = File.dirname( File.expand_path( File.dirname( __FILE__ ) ) )
+LIB_PATH  = File.join( ROOT_PATH, 'lib' )
 $:.unshift( ROOT_PATH )
+
 require 'lib/massive_scrobbler'
-require 'lib/songs'
 
 
 Choice.options do
@@ -39,12 +42,11 @@ Choice.options do
 end
 
 
-ms = MassiveScrobbler.new
-
 puts Choice.choices.path
-aMp3 = Songs.mp3_search(Choice.choices.path)
+s = MassiveScrobbler::Songs.new(Choice.choices.path)
+u = MassiveScrobbler::User.new
 
-aMp3Info = aMp3.collect do |mp3|
+aMp3Info = s.songs.collect do |mp3|
   Mp3Info.open(mp3) do |mp3info|
     { :length => mp3info.length.to_i,
       :artist => mp3info.tag.artist,
@@ -54,7 +56,7 @@ aMp3Info = aMp3.collect do |mp3|
   end
 end
 
-auth = Scrobbler::SimpleAuth.new(ms.get_user)
+auth = Scrobbler::SimpleAuth.new(:user => u.user, :password => u.password)
 auth.handshake!
 
 puts "Auth Status: #{auth.status}"

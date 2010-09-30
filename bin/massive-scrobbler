@@ -24,6 +24,11 @@ Choice.options do
     default './'
   end
 
+  option :verbose do
+    short '-v'
+    desc "Verbose mode. Print what's going on during its progress."
+  end
+
   option :help do
     short '-h'
     long '--help'
@@ -31,7 +36,6 @@ Choice.options do
   end
 
   option :version do
-    short '-v'
     long '--version'
     desc 'Show version.'
     action do
@@ -41,7 +45,7 @@ Choice.options do
   end
 end
 
-puts Choice.choices.path
+puts Choice.choices.path if Choice.choices.verbose
 
 s = MassiveScrobbler::Songs.new(Choice.choices.path)
 u = MassiveScrobbler::User.new

@@ -6,6 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["nebirhos"]
+  s.cert_chain = ["/home/istvan/Interzona/Dropbox/Doc/gemcert/gem-public_cert.pem"]
   s.date = %q{2010-10-01}
   s.default_executable = %q{massive-scrobbler}
   s.description = %q{Hack your LastFM account with hundreds of scrobblings in just few minutes :)}
@@ -18,6 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{massive-scrobbler}
   s.rubygems_version = %q{1.3.7}
+  s.signing_key = %q{/home/istvan/Interzona/Dropbox/Doc/gemcert/gem-private_key.pem}
   s.summary = %q{Hack your LastFM account with hundreds of scrobblings in just few minutes :)}
 
   if s.respond_to? :specification_version then

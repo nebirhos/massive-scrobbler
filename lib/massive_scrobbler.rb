@@ -12,8 +12,14 @@ module MassiveScrobbler
   def MassiveScrobbler.go!(args)
     s = MassiveScrobbler::Songs.new(args[:path])
     u = MassiveScrobbler::User.new(args[:verbose])
+    delay = begin
+              Float args[:delay]
+            rescue
+              0.0
+            end
+    n_songs = s.songs.length
 
-    s.songs.each do |song|
+    s.songs.each_with_index do |song, i|
       mp3info = Mp3Info.open(song) do |mp3|
         { :length => mp3.length.to_i,
           :artist => mp3.tag.artist,
@@ -22,19 +28,16 @@ module MassiveScrobbler
           :trackn => mp3.tag.tracknum }
       end
 
+      eol = "\r"
+      eol = "\n" if (i+1 == n_songs or args[:verbose])
+      STDERR.print("Scrobbled #{i+1} of #{n_songs}#{eol}")
+      STDERR.flush
+
       u.scrobble(mp3info)
-      if args[:delay] == 'real'
-        delay = mp3info[:length]
-      else
-        begin
-          delay = Float args[:delay]
-        rescue
-          delay = 0
-        end
-      end
+      delay = mp3info[:length] if args[:delay] == 'real'
       sleep(delay)
     end
-
+    puts "Done!"
   end
 
 end

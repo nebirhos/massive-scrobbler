@@ -9,5 +9,5 @@ Echoe.new('massive-scrobbler', MassiveScrobbler::VERSION) do |p|
   p.url             = "http://github.com/nebirhos/massive-scrobbler"
   p.author          = 'nebirhos'
   p.email           = "nebirhos@aol.com"
-  p.extra_deps      = [['scrobbler', '>=0.2.3'], ['ruby-mp3info', '>=0.6.13'], ['choice', '>=0.1.4']]
+  p.extra_deps      = [['rockstar', '>=0.4.2'], ['ruby-mp3info', '>=0.6.13'], ['choice', '>=0.1.4']]
 end

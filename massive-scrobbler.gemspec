@@ -25,16 +25,16 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<scrobbler>, [">= 0.2.3"])
+      s.add_runtime_dependency(%q<rockstar>, [">= 0.4.2"])
       s.add_runtime_dependency(%q<ruby-mp3info>, [">= 0.6.13"])
       s.add_runtime_dependency(%q<choice>, [">= 0.1.4"])
     else
-      s.add_dependency(%q<scrobbler>, [">= 0.2.3"])
+      s.add_dependency(%q<rockstar>, [">= 0.4.2"])
       s.add_dependency(%q<ruby-mp3info>, [">= 0.6.13"])
       s.add_dependency(%q<choice>, [">= 0.1.4"])
     end
   else
-    s.add_dependency(%q<scrobbler>, [">= 0.2.3"])
+    s.add_dependency(%q<rockstar>, [">= 0.4.2"])
     s.add_dependency(%q<ruby-mp3info>, [">= 0.6.13"])
     s.add_dependency(%q<choice>, [">= 0.1.4"])
   end

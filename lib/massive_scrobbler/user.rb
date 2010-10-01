@@ -1,5 +1,5 @@
 require 'yaml'
-require 'scrobbler'
+require 'rockstar'
 
 module MassiveScrobbler
 
@@ -48,7 +48,7 @@ module MassiveScrobbler
 
     def authenticate
       begin
-        @auth = Scrobbler::SimpleAuth.new(:user => @user, :password => @password)
+        @auth = Rockstar::SimpleAuth.new(:user => @user, :password => @password)
         @auth.handshake!
         if @verbose
           puts "Auth Status: #{@auth.status}"
@@ -63,7 +63,7 @@ module MassiveScrobbler
     end
 
     def scrobble(song)
-      scrobble = Scrobbler::Scrobble.new(:session_id => @auth.session_id,
+      scrobble = Rockstar::Scrobble.new(:session_id => @auth.session_id,
                                          :submission_url => @auth.submission_url,
                                          :artist => song[:artist],
                                          :track => song[:title],

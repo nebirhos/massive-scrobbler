@@ -1,5 +1,7 @@
+Manifest
 README.rdoc
 Rakefile
 bin/massive-scrobbler
-lib/songs.rb
-Manifest
+lib/massive_scrobbler.rb
+lib/massive_scrobbler/songs.rb
+lib/massive_scrobbler/user.rb

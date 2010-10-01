@@ -1,10 +1,11 @@
 = Massive Scrobbler
-=== Hack your LastFM account with thousands of scrobblings in just few seconds :)
+=== Hack your LastFM account with hundreds of scrobblings in just few minutes :)
 
 
 == Requirements
 * a LastFM account
-* something else
+* Ruby
+* RubyGem
 
 
 == Installation

@@ -6,19 +6,19 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["nebirhos"]
-  s.date = %q{2010-09-22}
+  s.date = %q{2010-10-01}
   s.default_executable = %q{massive-scrobbler}
-  s.description = %q{hack your LastFM account with thousands of scrobblings in just few seconds :)}
+  s.description = %q{Hack your LastFM account with hundreds of scrobblings in just few minutes :)}
   s.email = %q{nebirhos@aol.com}
   s.executables = ["massive-scrobbler"]
-  s.extra_rdoc_files = ["README.rdoc", "bin/massive-scrobbler", "lib/songs.rb"]
-  s.files = ["README.rdoc", "Rakefile", "bin/massive-scrobbler", "lib/songs.rb", "Manifest", "massive-scrobbler.gemspec"]
-  s.homepage = %q{}
+  s.extra_rdoc_files = ["README.rdoc", "bin/massive-scrobbler", "lib/massive_scrobbler.rb", "lib/massive_scrobbler/songs.rb", "lib/massive_scrobbler/user.rb"]
+  s.files = ["Manifest", "README.rdoc", "Rakefile", "bin/massive-scrobbler", "lib/massive_scrobbler.rb", "lib/massive_scrobbler/songs.rb", "lib/massive_scrobbler/user.rb", "massive-scrobbler.gemspec"]
+  s.homepage = %q{http://github.com/nebirhos/massive-scrobbler}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Massive-scrobbler", "--main", "README.rdoc"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{massive-scrobbler}
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{hack your LastFM account with thousands of scrobblings in just few seconds :)}
+  s.summary = %q{Hack your LastFM account with hundreds of scrobblings in just few minutes :)}
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION

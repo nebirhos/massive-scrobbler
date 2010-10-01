@@ -45,38 +45,5 @@ Choice.options do
   end
 end
 
-puts Choice.choices.path if Choice.choices.verbose
 
-s = MassiveScrobbler::Songs.new(Choice.choices.path)
-u = MassiveScrobbler::User.new
-
-aMp3Info = s.songs.collect do |mp3|
-  Mp3Info.open(mp3) do |mp3info|
-    { :length => mp3info.length.to_i,
-      :artist => mp3info.tag.artist,
-      :title  => mp3info.tag.title,
-      :album  => mp3info.tag.album,
-      :trackn => mp3info.tag.tracknum }
-  end
-end
-
-auth = Scrobbler::SimpleAuth.new(:user => u.user, :password => u.password)
-auth.handshake!
-
-puts "Auth Status: #{auth.status}"
-puts "Session ID: #{auth.session_id}"
-puts "Now Playing URL: #{auth.now_playing_url}"
-puts "Submission URL: #{auth.submission_url}"
-
-aMp3Info.each do |mp3|
-  scrobble = Scrobbler::Scrobble.new(:session_id => auth.session_id,
-                                     :submission_url => auth.submission_url,
-                                     :artist => mp3[:artist],
-                                     :track => mp3[:title],
-                                     :album => mp3[:album],
-                                     :time => Time.new,
-                                     :length => mp3[:length],
-                                     :track_number => mp3[:trackn])
-  scrobble.submit!
-  puts "#{mp3[:title]}: #{scrobble.status}"
-end
+MassiveScrobbler.go!(:path => Choice.choices.path, :verbose => Choice.choices.verbose)

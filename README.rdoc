@@ -9,14 +9,24 @@
 
 
 == Installation
-coming soon...
+  gem install massive-scrobbler
 
 
 == Usage
-coming soon...
+Just type in a shell
+  massive-scrobbler
+The script scans your current folder searching for audio files, and
+submits them to your LastFM account at high speed (tipically ~0,5 seconds).
+
+To manually choose the delay between each submission:
+  massive-scrobbler -d [number]
+To simulate a realtime listening:
+  massive-scrobbler -d real
+
+For other options and help:
+  massive-scrobbler --help
 
 
 == ToDo:
-* better documentation
 * more features
 * upgrade to Scrobbler-ng # lastfm API 2.0

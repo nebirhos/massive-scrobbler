@@ -15,6 +15,7 @@ require 'lib/massive_scrobbler'
 
 
 Choice.options do
+  header ''
   header 'MassiveScrobbler options:'
 
   option :path do
@@ -22,6 +23,14 @@ Choice.options do
     long '--path'
     desc 'Path where to search the audio files [default: current directory].'
     default './'
+  end
+
+  option :delay do
+    short '-d'
+    long '--delay'
+    desc 'Delay between each song submission. Choose a # of seconds [default: 0.3]'
+    desc "Choose 'real' to scrobble songs like a realtime listening."
+    default '0.3'
   end
 
   option :verbose do
@@ -46,4 +55,6 @@ Choice.options do
 end
 
 
-MassiveScrobbler.go!(:path => Choice.choices.path, :verbose => Choice.choices.verbose)
+MassiveScrobbler.go!( :path => Choice.choices.path,
+                      :verbose => Choice.choices.verbose,
+                      :delay => Choice.choices.delay )

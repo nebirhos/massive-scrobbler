@@ -35,7 +35,6 @@ Choice.options do
   end
 
   option :help do
-    short '-h'
     long '--help'
     desc 'Show this message.'
   end

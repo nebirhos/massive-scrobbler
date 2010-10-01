@@ -2,7 +2,6 @@ $: << File.expand_path(File.dirname(__FILE__))
 
 require 'massive_scrobbler/songs'
 require 'massive_scrobbler/user'
-require 'mp3info'
 
 module MassiveScrobbler
 
@@ -18,27 +17,28 @@ module MassiveScrobbler
             rescue
               0.0
             end
-    n_songs = s.songs.length
 
-    s.songs.each_with_index do |song, i|
-      mp3info = Mp3Info.open(song) do |mp3|
-        { :length => mp3.length.to_i,
-          :artist => mp3.tag.artist,
-          :title  => mp3.tag.title,
-          :album  => mp3.tag.album,
-          :trackn => mp3.tag.tracknum }
+    s.each_song_with_index do |song, i|
+      i += 1
+      if song[:artist].nil?
+          MassiveScrobbler.puts_status("Skipped song #{song[:path]}", true)
+      else
+        new_line = (i == s.length || args[:verbose])
+        u.scrobble(song)
+        MassiveScrobbler.puts_status("Scrobbled #{i} of #{s.length}", new_line)
+        delay = song[:length] if args[:delay] == 'real'
+        sleep(delay)
       end
-
-      eol = "\r"
-      eol = "\n" if (i+1 == n_songs or args[:verbose])
-      STDERR.print("Scrobbled #{i+1} of #{n_songs}#{eol}")
-      STDERR.flush
-
-      u.scrobble(mp3info)
-      delay = mp3info[:length] if args[:delay] == 'real'
-      sleep(delay)
     end
-    puts "Done!"
+
+    MassiveScrobbler.puts_status("Done!", true)
+  end
+
+  def MassiveScrobbler.puts_status(string, new_line=nil)
+    eol = "\r"
+    eol = "\n" if new_line
+    STDERR.print(string + eol)
+    STDERR.flush
   end
 
 end

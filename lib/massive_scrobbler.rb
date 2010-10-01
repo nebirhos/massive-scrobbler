@@ -2,6 +2,7 @@ $: << File.expand_path(File.dirname(__FILE__))
 
 require 'massive_scrobbler/songs'
 require 'massive_scrobbler/user'
+require 'mp3info'
 
 module MassiveScrobbler
 

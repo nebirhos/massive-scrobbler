@@ -1,4 +1,6 @@
 require 'yaml'
+require 'activesupport' # activesupport WTF?
+require 'scrobbler'
 
 module MassiveScrobbler
 
